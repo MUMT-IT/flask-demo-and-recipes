@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1 class="title">Register Here</h1>
+    <form method="post">
+        <label>Name</label>
+        <input type="text" name="name">
+        <label>Email</label>
+        <input type="email" name="email">
+        <input type="submit" value="Submit">
+    </form>
+    <p class="has-text-danger">
+    {% for error in errors %}
+        {{ error }}
+    {% endfor %}
+    </p>
+</div>
+{% endblock %}
