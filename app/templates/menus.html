@@ -2,6 +2,13 @@
 
 {% block content %}
 <div class="container">
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        {% for message in messages %}
+          <p class="notification is-success">{{ message }}</p>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
     <h1 class="title has-text-centered">Menu</h1>
     <ul>
         <li><a href="{{ url_for('register') }}">Register</a></li>

@@ -2,18 +2,47 @@
 
 {% block content %}
 <div class="container">
-    <h1 class="title">Register Here</h1>
-    <form method="post">
-        <label>Name</label>
-        <input type="text" name="name">
-        <label>Email</label>
-        <input type="email" name="email">
-        <input type="submit" value="Submit">
-    </form>
+    <div class="columns">
+        <div class="column box is-one-third is-offset-4">
+            <h1 class="title has-text-centered">Register Here</h1>
+            <form method="post">
+                {{ form.hidden_tag() }}
+                <div class="field">
+                    <label>{{ form.name.label }}</label>
+                    <div class="control">
+                        {{ form.name(class="input") }}
+                    </div>
+                </div>
+                <div class="field">
+                    <label>{{ form.email.label }}</label>
+                    <div class="control">
+                        {{ form.email(class="input") }}
+                    </div>
+                </div>
+                <div class="field">
+                    <label>{{ form.password.label }}</label>
+                    <div class="control">
+                        {{ form.password(class="input") }}
+                    </div>
+                </div>
+                <div class="field">
+                    <label>{{ form.confirmed_password.label }}</label>
+                    <div class="control">
+                        {{ form.confirmed_password(class="input") }}
+                    </div>
+                </div>
+                <div class="buttons is-centered">
+                    <a class="button is-light" href="{{ url_for('show_menu') }}">Back</a>
+                    <input type="submit" class="button is-success" value="Submit">
+                </div>
+            </form>
+
+        </div>
+    </div>
     <p class="has-text-danger">
-    {% for error in errors %}
-        {{ error }}
-    {% endfor %}
+        {% for field, msg in errors.items() %}
+        {{ ', '.join(msg) }}
+        {% endfor %}
     </p>
 </div>
 {% endblock %}
