@@ -1,6 +1,8 @@
-from flask import Flask, render_template, jsonify, request
+from flask import Flask, render_template, jsonify, redirect, url_for, flash
+from forms import RegisterForm
 
 app = Flask(__name__)  # file name
+app.config['SECRET_KEY'] = 'thisisaverysecretivekey'
 
 
 @app.route('/', methods=['GET'])
@@ -15,17 +17,13 @@ def show_menu():
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
-    print(request.method)
-    if request.method == 'POST':
-        errors = []
-        name = request.form.get('name')
-        email = request.form.get('email')
-        if not name:
-            errors.append('You need to enter your name.')
-        if not email:
-            errors.append('You need to enter an email.')
-        return render_template('register.html', errors=errors)
-    return render_template('register.html')
+    form = RegisterForm()
+    if form.validate_on_submit():
+        name = form.name.data
+        email = form.email.data
+        flash('You have registered successfully.')
+        return redirect(url_for('show_menu'))
+    return render_template('register.html', form=form, errors=form.errors)
 
 
 @app.route('/appointments')
