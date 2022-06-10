@@ -11,9 +11,9 @@
     {% endwith %}
     <h1 class="title has-text-centered">Menu</h1>
     <ul>
-        <li><a href="{{ url_for('register') }}">Register</a></li>
-        <li><a href="{{ url_for('make_appointment') }}">Make appointment</a></li>
-        <li>Edit account</li>
+        <li><a href="{{ url_for('user.register') }}">Register</a></li>
+        <li><a href="{{ url_for('user.make_appointment') }}">Make appointment</a></li>
+        <li><a href="{{ url_for('list_appointments') }}">All appointments</a></li>
     </ul>
 </div>
 
