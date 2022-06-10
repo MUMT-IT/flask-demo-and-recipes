@@ -1,7 +1,7 @@
 from flask import render_template, flash, redirect, url_for, jsonify
 
-from app.user.forms import RegisterForm
-from app.user.models import User
+from app.user.forms import RegisterForm, AppointmentForm
+from app.user.models import User, Appointment
 from app.main import db
 from . import user_blueprint as user
 
@@ -25,9 +25,17 @@ def register():
     return render_template('register.html', form=form, errors=form.errors)
 
 
-@user.route('/appointments')
+@user.route('/appointments', methods=['GET', 'POST'])
 def make_appointment():
-    return 'You can make an appointment now.'
+    form = AppointmentForm()
+    if form.validate_on_submit():
+        new_apt = Appointment()
+        form.populate_obj(new_apt)  # insert data from form to model
+        db.session.add(new_apt)
+        db.session.commit()
+        flash('Data has been saved.')
+        return redirect('show_menu')
+    return render_template('appointment.html', form=form)
 
 
 @user.route('/api/v1.0/services')

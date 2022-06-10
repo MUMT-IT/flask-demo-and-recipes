@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block head %}
+{{ super() }}
+<link href="https://cdn.datatables.net/1.12.1/css/dataTables.bulma.min.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+  <div class="columns">
+    <div class="column">
+      <h1 class="title has-text-centered">All Appointments</h1>
+      <table id="table" class="table is-striped is-fullwidth">
+        <thead>
+        <th>User</th>
+        <th>Date Time</th>
+        <th>Purpose</th>
+        <th>Detail</th>
+        <th>Created At</th>
+        </thead>
+        <tbody>
+        {% for apt in appointments %}
+        <tr>
+          <td>{{ apt.user.name }}</td>
+          <td>{{ apt.datetime }}</td>
+          <td>{{ apt.purpose }}</td>
+          <td>{{ apt.detail }}</td>
+          <td>{{ apt.created_at }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+      <div class="buttons is-centered">
+        <a href="{{ url_for('show_menu') }}" class="button is-link">Menu</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.12.1/js/dataTables.bulma.min.js"></script>
+<script>
+  $(document).ready(()=>{
+    $('#table').DataTable();
+  })
+</script>
+{% endblock %}

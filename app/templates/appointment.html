@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="columns">
+        <div class="column box is-one-third is-offset-4">
+            <h1 class="title has-text-centered">Appointment Form</h1>
+            <form method="post">
+                {{ form.hidden_tag() }}
+                <div class="field">
+                    <label>{{ form.user.label }}</label>
+                    <div class="select">
+                        {{ form.user() }}
+                    </div>
+                </div>
+                <div class="field">
+                    <label>{{ form.datetime.label }}</label>
+                    <div class="control">
+                        {{ form.datetime(class="input") }}
+                    </div>
+                </div>
+                <div class="field">
+                    <label>{{ form.purpose.label }}</label>
+                    <div class="select">
+                        {{ form.purpose() }}
+                    </div>
+                </div>
+                <div class="field">
+                    <label>{{ form.detail.label }}</label>
+                    <div class="control">
+                        {{ form.detail(class="textarea") }}
+                    </div>
+                </div>
+                <div class="buttons is-centered">
+                    <a class="button is-light" href="{{ url_for('show_menu') }}">Back</a>
+                    <input type="submit" class="button is-success" value="Submit">
+                </div>
+            </form>
+
+        </div>
+    </div>
+    <p class="has-text-danger">
+        {% for field, msg in form.errors.items() %}
+        {{ ', '.join(msg) }}
+        {% endfor %}
+    </p>
+</div>
+
+{% endblock %}
+{% block scripts %}
+{{ super() }}
+<script>
+$(function() {
+  $('input[name="datetime"]').daterangepicker({
+    opens: 'left',
+    singleDatePicker: true,
+    timePicker: true,
+    timePickerIncrement: 30,
+    locale: {
+        format: 'YYYY-MM-DD HH:mm:ss'
+    }
+  }, function(start, end, label) {
+    console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+  });
+});
+</script>
+{% endblock %}
