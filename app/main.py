@@ -12,9 +12,10 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
 
 db = SQLAlchemy(app)
 
-# from models import *
+from app.user.models import *
 
-# db.create_all()
+db.create_all()
+
 
 @app.route('/', methods=['GET'])
 def index():
