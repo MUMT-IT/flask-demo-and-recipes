@@ -34,7 +34,7 @@ def make_appointment():
         db.session.add(new_apt)
         db.session.commit()
         flash('Data has been saved.')
-        return redirect('show_menu')
+        return redirect(url_for('show_menu'))
     return render_template('appointment.html', form=form)
 
 
