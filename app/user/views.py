@@ -1,9 +1,14 @@
+from datetime import datetime
+
 from flask import render_template, flash, redirect, url_for, jsonify
 
 from app.user.forms import RegisterForm, AppointmentForm
 from app.models import User, Appointment
 from app.main import db
 from . import user_blueprint as user
+from pytz import timezone
+
+Bangkok = timezone('Asia/Bangkok')
 
 
 @user.route('/register', methods=['GET', 'POST'])
@@ -36,6 +41,16 @@ def make_appointment():
         flash('Data has been saved.')
         return redirect(url_for('show_menu'))
     return render_template('appointment.html', form=form)
+
+
+@user.route('/appointments/<int:apt_id>/confirm')
+def confirm_appointment(apt_id):
+    appointment = Appointment.query.get(apt_id)
+    appointment.confirmed_at = datetime.now(tz=Bangkok)
+    db.session.add(appointment)
+    db.session.commit()
+    flash('The appointment ID={} has been confirmed'.format(apt_id))
+    return redirect(url_for('list_appointments'))
 
 
 @user.route('/api/v1.0/services')
