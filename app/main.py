@@ -1,8 +1,8 @@
 import os
 
 from flask import Flask, render_template
-from flask_sqlalchemy import SQLAlchemy
 from dotenv import load_dotenv
+from models import *
 
 load_dotenv()
 
@@ -10,11 +10,7 @@ app = Flask(__name__)  # file name
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
 
-db = SQLAlchemy(app)
-
-from app.user.models import *
-
-db.create_all()
+db.init_app(app)
 
 
 @app.route('/', methods=['GET'])

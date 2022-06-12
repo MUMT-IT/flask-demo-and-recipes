@@ -1,7 +1,8 @@
 # -*- coding:utf-8 -*-
 from sqlalchemy import func
+from flask_sqlalchemy import SQLAlchemy
 
-from app.main import db
+db = SQLAlchemy()
 
 
 class User(db.Model):
