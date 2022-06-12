@@ -5,7 +5,7 @@ from wtforms.validators import Email, DataRequired, Length, EqualTo
 from wtforms_alchemy import model_form_factory, QuerySelectField
 
 from app.main import db
-from app.user.models import Appointment, User
+from app.models import Appointment, User
 
 BaseModelForm = model_form_factory(FlaskForm)
 

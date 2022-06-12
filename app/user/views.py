@@ -1,7 +1,7 @@
 from flask import render_template, flash, redirect, url_for, jsonify
 
 from app.user.forms import RegisterForm, AppointmentForm
-from app.user.models import User, Appointment
+from app.models import User, Appointment
 from app.main import db
 from . import user_blueprint as user
 
