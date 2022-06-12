@@ -27,4 +27,5 @@ class Appointment(db.Model):
     user_id = db.Column('user_id', db.ForeignKey('users.id'))
     created_at = db.Column('created_at', db.DateTime(timezone=True), default=func.now())
     user = db.relation(User, backref=db.backref('appointments', lazy='dynamic'))
+    confirmed_at = db.Column('confirmed_at', db.DateTime(timezone=True))
 
