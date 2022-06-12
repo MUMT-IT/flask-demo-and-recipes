@@ -18,6 +18,8 @@
         <th>Purpose</th>
         <th>Detail</th>
         <th>Created At</th>
+        <th>Confirmed At</th>
+        <th>Action</th>
         </thead>
         <tbody>
         {% for apt in appointments %}
@@ -27,6 +29,14 @@
           <td>{{ apt.purpose }}</td>
           <td>{{ apt.detail }}</td>
           <td>{{ apt.created_at }}</td>
+          <td>{{ apt.confirmed_at or 'pending..' }}</td>
+          <td>
+            {% if not apt.confirmed_at %}
+            <a href="{{ url_for('user.confirm_appointment', apt_id=apt.id) }}" class="button is-small is-success">
+              confirm
+            </a>
+            {% endif %}
+          </td>
         </tr>
         {% endfor %}
         </tbody>
