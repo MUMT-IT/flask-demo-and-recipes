@@ -1,11 +1,12 @@
 # -*- coding:utf-8 -*-
+from flask_login import UserMixin
 from sqlalchemy import func
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
 
-class User(db.Model):
+class User(db.Model, UserMixin):
     __tablename__ = 'users'
     id = db.Column('id', db.Integer, autoincrement=True, primary_key=True)
     name = db.Column('name', db.String(255), nullable=False)
