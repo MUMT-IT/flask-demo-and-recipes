@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from flask import render_template, flash, redirect, url_for, jsonify
+from flask_login import login_required
 
 from app.user.forms import RegisterForm, AppointmentForm
 from app.models import User, Appointment
@@ -31,6 +32,7 @@ def register():
 
 
 @user.route('/appointments', methods=['GET', 'POST'])
+@login_required
 def make_appointment():
     form = AppointmentForm()
     if form.validate_on_submit():
