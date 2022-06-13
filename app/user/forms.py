@@ -32,3 +32,10 @@ class AppointmentForm(ModelForm):
 
     user = QuerySelectField('User', query_factory=lambda: User.query.all(),
                             get_label='name', blank_text='Select user..', allow_blank=False)
+
+
+class LoginForm(FlaskForm):
+    email = StringField('Email', validators=[Length(min=10, message=u'สั้นเกินไป'),
+                                             Email(message=u'อีเมลไม่ถูกต้อง'), DataRequired()])
+    password = PasswordField('Password', validators=[Length(min=6),
+                                                     DataRequired()])
